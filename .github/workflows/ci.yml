@@ -1,0 +1,42 @@
+name: Backend CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_NOLOGO: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Restore tools and packages
+        run: |
+          dotnet tool restore
+          dotnet restore JobFree.sln
+      - name: Build
+        run: dotnet build JobFree.sln -c Release --no-restore
+      - name: Test
+        run: dotnet test JobFree.sln -c Release --no-build --no-restore
+      - name: Verify formatting
+        run: dotnet format JobFree.sln --verify-no-changes --no-restore
+      - name: Validate local Compose configuration
+        shell: bash
+        run: |
+          for key in POSTGRES_DB POSTGRES_USER POSTGRES_PASSWORD REDIS_PASSWORD RABBITMQ_USER RABBITMQ_PASSWORD MINIO_ROOT_USER MINIO_ROOT_PASSWORD GRAFANA_ADMIN_USER GRAFANA_ADMIN_PASSWORD PGADMIN_DEFAULT_PASSWORD; do
+            export "$key=$(openssl rand -hex 16)"
+          done
+          export S3_REGION=us-east-1
+          docker compose config --quiet
+      - name: Build API container
+        run: docker build --tag jobfree-api:ci .
+      # SKELETON: ECS deployment awaits real AWS resources and OIDC/IAM configuration.
