@@ -51,7 +51,7 @@ docker compose up -d --build --wait --wait-timeout 180
 > - **Backend API / Swagger**: `http://127.0.0.1:8080/swagger`
 > - **PostgreSQL (PostGIS)**: `127.0.0.1:15432`
 > - **Redis Cache**: `127.0.0.1:6379`
-> - **pgAdmin**: `http://127.0.0.1:5050` — [Hướng dẫn đăng nhập và xem dữ liệu](docs/pgadmin.md)
+> - **pgAdmin**: `http://127.0.0.1:5050` — [Thông tin tích hợp và lưu ý về credential](docs/architecture.md#pgadmin)
 > - **RabbitMQ Dashboard**: `http://localhost:15672` *(Đăng nhập bằng `RABBITMQ_USER` / `RABBITMQ_PASSWORD` trong `.env`)*
 > - **MinIO Console (S3 UI)**: `http://localhost:9001` *(Đăng nhập bằng `MINIO_ROOT_USER` / `MINIO_ROOT_PASSWORD`)*
 > - **Prometheus Metrics**: `http://localhost:9090`
@@ -126,10 +126,10 @@ Lệnh trên giữ các named volumes chứa dữ liệu. Cấu hình Compose n�
 
 ---
 
-## Tài Liệu Kiến Trúc & Cấu Trúc Dự Án
+## Tài Liệu Dự Án
 
-Chi tiết về cấu trúc các thư mục, vai trò của từng tầng (Layer) và tác dụng của từng Class trong hệ thống được trình bày tại:
-**[docs/project-structure.md](docs/project-structure.md)**
+- **[Kiến trúc và hạ tầng](docs/architecture.md)**: các layer, luồng xử lý, Docker Compose, health checks, observability và những giới hạn hiện tại.
+- **[Quy trình Git và GitHub](docs/github-workflow.md)**: mô hình nhánh `develop`, quy tắc commit, kiểm tra trước khi push, Pull Request, release và hotfix.
 
 ---
 
