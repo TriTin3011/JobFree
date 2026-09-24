@@ -486,7 +486,6 @@ $RECYCLE.BIN/
 # JobFree local configuration and secrets
 .env
 .env.*
-!.env.example
 secrets.json
 appsettings.*.local.json
 *.pfx

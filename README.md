@@ -29,33 +29,12 @@ cd JobFree
 
 ### Bước 2: Tạo và cấu hình file môi trường `.env`
 
-Tạo file `.env` từ file mẫu `.env.example`:
+File `.env` không được lưu trên GitHub. Liên hệ người quản lý dự án để nhận file qua kênh riêng, sau đó đặt file vào thư mục gốc của repository (cùng cấp với `docker-compose.yml`). Không commit hoặc chia sẻ file này qua Git.
 
-- **Trên Windows (PowerShell):**
-  ```powershell
-  Copy-Item .env.example .env
-  ```
-- **Trên Linux / macOS (Bash):**
-  ```bash
-  cp .env.example .env
-  ```
+Kiểm tra file đã có đủ biến cấu hình cần thiết trước khi khởi chạy:
 
-File mẫu có đủ giá trị để chạy thử local. Có thể thay tài khoản và mật khẩu trước lần khởi động đầu tiên (ví dụ):
-
-```env
-POSTGRES_DB=jobfree_db
-POSTGRES_USER=jobfree_user
-POSTGRES_PASSWORD=YourSecurePassword123!
-REDIS_PASSWORD=YourRedisPassword123!
-RABBITMQ_USER=jobfree_rabbit
-RABBITMQ_PASSWORD=YourRabbitPassword123!
-MINIO_ROOT_USER=minio_admin
-MINIO_ROOT_PASSWORD=YourMinioPassword123!
-S3_REGION=us-east-1
-GRAFANA_ADMIN_USER=admin
-GRAFANA_ADMIN_PASSWORD=YourGrafanaPassword123!
-PGADMIN_DEFAULT_EMAIL=admin@jobfree.com
-PGADMIN_DEFAULT_PASSWORD=YourPgAdminPassword123!
+```bash
+docker compose config --quiet
 ```
 
 ---
